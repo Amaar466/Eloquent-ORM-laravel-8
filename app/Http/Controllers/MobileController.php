@@ -1,10 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Auth;
+use App\Models\Mobile;
 use Illuminate\Http\Request;
 
-class CustomerController extends Controller
+class MobileController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,8 +14,9 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        return view('addcustomer');
+        return view('addmobile');
     }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -33,7 +35,14 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //dd($request->all());
+        $mobile = new Mobile();
+        $mobile->user_id = auth::id();
+        $mobile->name =$request->input('name');
+        $mobile->email =$request->input('email');
+        $mobile->save();
+        //dd($mobile);
+        return view('addmobile');
     }
 
     /**
